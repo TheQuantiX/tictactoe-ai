@@ -183,3 +183,56 @@ def play_netvnet(mode, board, net1, net2):
                 mymode = 'o'
             #printBoard(board)
         return [board, CheckVictoryO(board, x, y)]
+    
+def play_netvnet_vis(mode, board, net1, net2):
+    x = y = 0
+    if (mode == 'x'):
+        mymode = 'x'
+        while CheckVictoryX(board, x, y) == None:
+            if mymode == 'o':
+                print("Getting coordinates from the AI...")
+                time.sleep(3.0)
+                coords = nnet.getCoords(mode, board, net1)
+                x, y = coords[0], coords[1]
+                if board[x][y] != ' ':
+                    return [board, -1]
+                else:
+                    board[x][y] = 'o'
+                mymode = 'x'
+            else:
+                print("Getting coordinates from the AI...")
+                time.sleep(3.0)
+                arr = nnet.getCoords(mode, board, net2)
+                x, y = arr[0], arr[1]
+                if board[x][y] != ' ':
+                    return [board, 1]
+                else:
+                    board[x][y] = 'x'
+                mymode = 'o'
+            printBoard('x', board)
+        return [board, CheckVictoryX(board, x, y)]
+    else:
+        mymode = 'x'
+        while CheckVictoryO(board, x, y) == None:
+            if mymode == 'o':
+                print("Getting coordinates from the AI...")
+                time.sleep(3.0)
+                arr = nnet.getCoords(mode, board, net2)
+                x, y = arr[0], arr[1]
+                if board[x][y] != ' ':
+                    return [board, 1]
+                else:
+                    board[x][y] = 'o'
+                mymode = 'x'
+            else:
+                print("Getting coordinates from the AI...")
+                time.sleep(3.0)
+                coords = nnet.getCoords(mode, board, net1)
+                x, y = coords[0], coords[1]
+                if board[x][y] != ' ':
+                    return [board, -1]
+                else:
+                    board[x][y] = 'x'
+                mymode = 'o'
+            printBoard('o', board)
+        return [board, CheckVictoryO(board, x, y)]
