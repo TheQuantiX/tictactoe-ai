@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 f = open('topfitness.txt')
-a = f.readlines()[1:]
+a = f.readlines()[-200:]
 a = list(map(lambda x : int(x.split(',')[1]), a))
 f.close()
 
