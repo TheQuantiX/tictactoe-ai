@@ -31,7 +31,10 @@ def printOK(end = '\n'):
     cprint('OK', 'green', end = end)
     
 def training():
-    my_arg = to_int(sys.argv[1])
+    if len(sys.argv) < 2:
+        my_arg = 0
+    else:
+        my_arg = to_int(sys.argv[1])
     
     colorama.init()
     
@@ -58,16 +61,18 @@ def training():
             gen_num = float(f0.readlines()[0])
         
     while True:
+        for i in range(50):
+            fitness[i] = 0
         print("Comparing networks... ", end="\t")
         tim = time.time()
         for i in range(49):
             for j in range(i + 1, 50):
                 s = random.randint(0, 1)
                 board = []
-                for i in range(A_SIDE):
+                for i1 in range(A_SIDE):
                     board.append([])
-                    for j in range(A_SIDE):
-                        board[i].append(' ')
+                    for j1 in range(A_SIDE):
+                        board[i1].append(' ')
                 if s == 0:
                     a = game.play_netvnet('x', board, n[i], n[j])
                     n_board = a[0]
@@ -106,6 +111,11 @@ def training():
             
         for i in range(50):
             nnet.save("data/data{}.txt".format(i), n[i])
+            
+        fit = open("topfitness.txt", "a")
+        fit.write('{},{}\n'.format(str(gen_num), str(agent[0][0])))
+        fit.close()
+        
         printOK()
         
         with open("gen.txt", "w") as fgen:
