@@ -19,13 +19,13 @@ def generate():
     n = [[], [], [], [], []]
     for i in range(SIZE):
         n[0].append(0)
-    for i in range(SIZE // 3):
+    for i in range(SIZE):
         n[4].append(random.randint(10, 60) / 10 * random.choice([1, -1]))
     for i in range(HIDDEN):
         n[2].append(random.randint(10, 60) / 10 * random.choice([1, -1]))
     for i in range(SIZE * HIDDEN):
         n[1].append(random.random() * random.choice([1, -1]))
-    for i in range(SIZE * HIDDEN // 3):
+    for i in range(SIZE * HIDDEN):
         n[3].append(random.random() * random.choice([1, -1]))
     return n
 
@@ -45,20 +45,20 @@ def getCoords(mode, board, net):
         for j in board:
             for i in j:
                 if i == ' ':
-                    nn.extend([1, 0, 0])
+                    nn.extend([0])
                 elif i == 'x':
-                    nn.extend([0, 1, 0])
+                    nn.extend([-1])
                 else:
-                    nn.extend([0, 0, 1])
+                    nn.extend([1])
     else:
         for j in board:
             for i in j:
                 if i == ' ':
-                    nn.extend([1, 0, 0])
+                    nn.extend([0])
                 elif i == 'x':
-                    nn.extend([0, 0, 1])
+                    nn.extend([1])
                 else:
-                    nn.extend([0, 1, 0])
+                    nn.extend([-1])
     n_net = net[:]
     n_net[0] = nn
     del n_net[3]
@@ -69,9 +69,9 @@ def getCoords(mode, board, net):
     for i in range(HIDDEN):
         n_net[1][i] = math.tanh(n_net[1][i])
     for i in range(HIDDEN):
-        for j in range(SIZE // 3):
+        for j in range(SIZE):
             n_net[2][j] += n_net[1][i] * net[3][i * A_SIDE + j]
-    for i in range(SIZE // 3):
+    for i in range(SIZE):
         n_net[2][i] = math.tanh(n_net[1][i])
     for i in range(A_SIDE):
         for j in range(A_SIDE):
@@ -82,7 +82,7 @@ def getCoords(mode, board, net):
         else:
             continue
         break
-    for i in range(0, SIZE // 3):
+    for i in range(0, SIZE):
         if n_net[2][i] > maxN and board[i // A_SIDE][i % A_SIDE] == ' ':
             maxN = n_net[2][i]
             maxC = i

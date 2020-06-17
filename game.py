@@ -89,7 +89,7 @@ def play(mode, board, net):
         while CheckVictoryX(board, x, y) == None:
             if mymode == 'o':
                 print("Getting coordinates from the AI...")
-                time.sleep(3.0)
+                time.sleep(2.0)
                 coords = nnet.getCoords(mode, board, net)
                 x, y = coords[0], coords[1]
                 if board[x][y] != ' ':
@@ -120,7 +120,7 @@ def play(mode, board, net):
                 mymode = 'x'
             else:
                 print("Getting coordinates from the AI...")
-                time.sleep(3.0)
+                time.sleep(2.0)
                 coords = nnet.getCoords(mode, board, net)
                 x, y = coords[0], coords[1]
                 if board[x][y] != ' ':
@@ -191,7 +191,7 @@ def play_netvnet_vis(mode, board, net1, net2):
         while CheckVictoryX(board, x, y) == None:
             if mymode == 'o':
                 print("Getting coordinates from the AI...")
-                time.sleep(3.0)
+                time.sleep(2.0)
                 coords = nnet.getCoords(mode, board, net1)
                 x, y = coords[0], coords[1]
                 if board[x][y] != ' ':
@@ -201,7 +201,7 @@ def play_netvnet_vis(mode, board, net1, net2):
                 mymode = 'x'
             else:
                 print("Getting coordinates from the AI...")
-                time.sleep(3.0)
+                time.sleep(2.0)
                 arr = nnet.getCoords(mode, board, net2)
                 x, y = arr[0], arr[1]
                 if board[x][y] != ' ':
@@ -216,7 +216,7 @@ def play_netvnet_vis(mode, board, net1, net2):
         while CheckVictoryO(board, x, y) == None:
             if mymode == 'o':
                 print("Getting coordinates from the AI...")
-                time.sleep(3.0)
+                time.sleep(2.0)
                 arr = nnet.getCoords(mode, board, net2)
                 x, y = arr[0], arr[1]
                 if board[x][y] != ' ':
@@ -226,7 +226,7 @@ def play_netvnet_vis(mode, board, net1, net2):
                 mymode = 'x'
             else:
                 print("Getting coordinates from the AI...")
-                time.sleep(3.0)
+                time.sleep(2.0)
                 coords = nnet.getCoords(mode, board, net1)
                 x, y = coords[0], coords[1]
                 if board[x][y] != ' ':

@@ -43,13 +43,13 @@ def training():
     fitness = []
     if not WAS_FILE:
         print("Generating networks... ", end="\t")
-        for i in range(100):
+        for i in range(50):
             n.append(nnet.generate())
             fitness.append(0)
         printOK()
     else:
         print("Loading networks... ", end="\t")
-        for i in range(100):
+        for i in range(50):
             n.append(nnet.load("data/data{}.txt".format(i)))
             fitness.append(0)
         printOK()
@@ -60,8 +60,8 @@ def training():
     while True:
         print("Comparing networks... ", end="\t")
         tim = time.time()
-        for i in range(99):
-            for j in range(i + 1, 100):
+        for i in range(49):
+            for j in range(i + 1, 50):
                 s = random.randint(0, 1)
                 board = []
                 for i in range(A_SIDE):
@@ -83,16 +83,16 @@ def training():
         print("Creating generation {}... ".format(int(gen_num)), end="\t")
         gen_num += 1
         agent = []
-        for i in range(100):
+        for i in range(50):
             agent.append([fitness[i], n[i]])
         agent.sort(key = lambda x: x[0])
         agent = agent[::-1]
-        agent = agent[:random.randint(10, 15)]
+        agent = agent[:random.randint(5, 8)]
         n = []
         for i in range(len(agent)):
             n.append(agent[i][1])
         siz = len(agent)
-        for i in range(100 - len(agent)):
+        for i in range(50 - len(agent)):
             aaa = random.random()
             if aaa < 0.2:
                 n.append(genetic.mutate(n[random.randint(0, siz - 1)]))
@@ -104,12 +104,12 @@ def training():
         with open("wasfile.txt", "w") as f:
             f.write("True")
             
-        for i in range(100):
+        for i in range(50):
             nnet.save("data/data{}.txt".format(i), n[i])
         printOK()
         
         with open("gen.txt", "w") as fgen:
-            fgen.write(str(gen_num))
+            fgen.write(str(gen_num - 1))
         if gen_num > my_arg:
             v = input("Do you want to train them further? (y/n) ")
             if v == "n" or v == "N" or v == "no" or v == "No" or v == "nO" or v == "NO":
